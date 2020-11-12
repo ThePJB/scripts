@@ -1,0 +1,8 @@
+#! /usr/bin/sh
+
+if [ -z "$1" ]; then
+    echo 'task cleared'
+    [ -f ~/.task ] && rm ~/.task 
+else
+    echo $@ > ~/.task
+fi
