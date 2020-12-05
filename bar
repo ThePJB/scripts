@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+time=$( date +"%A %d/%m %H:%M" )
+echo "spagett | $time"
