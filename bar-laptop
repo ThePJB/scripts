@@ -1,0 +1,10 @@
+#!/bin/sh
+
+bat_status=`cat /sys/class/power_supply/BAT0/status`
+bat_curr=`cat /sys/class/power_supply/BAT0/charge_now`
+bat_full=`cat /sys/class/power_supply/BAT0/charge_full`
+
+bat_percent=$((bat_curr * 100 / bat_full))
+time=$( date +"%A %d/%m %H:%M" )
+
+echo "$bat_percent% $bat_status | $time"

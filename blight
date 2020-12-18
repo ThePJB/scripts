@@ -1,0 +1,50 @@
+#!/bin/sh
+
+BLIGHT_MAX=300
+BLIGHT_MIN=1
+
+function set_blight_absolute {
+    echo "setting blight to $1" >&2
+    echo $1 > /sys/class/backlight/intel_backlight/brightness
+}
+
+function get_blight {
+    curr_light=$(cat /sys/class/backlight/intel_backlight/brightness)
+    echo "curr light $curr_light" >&2
+    echo $curr_light
+}
+
+function blight_up {
+    curr_blight=$(get_blight)
+    echo "curr_blight $curr_blight"
+    new_blight=$(( $curr_blight + 30 ))
+    [[ $new_blight -gt $BLIGHT_MAX ]] && new_blight=$BLIGHT_MAX
+    set_blight_absolute $new_blight
+}
+
+function blight_down {
+    curr_blight=$(get_blight)    
+    echo "curr_blight $curr_blight"
+    new_blight=$(( $curr_blight - 30 ))
+    [[ $new_blight -lt $BLIGHT_MIN ]] && new_blight=$BLIGHT_MIN
+    set_blight_absolute $new_blight
+}
+
+# [[ $1 == n ]] && set_blight_absolute $2 ||
+# [[ $1 -eq u ]] && blight_up   ||
+# [[ $1 -eq d ]] && blight_down ||
+
+# set_blight_absolute 200
+
+if [[ $1 == n ]]; then
+    echo "setting to number"
+    set_blight_absolute $2
+elif [[ $1 == u ]]; then
+    echo "blight up"
+    blight_up
+elif [[ $1 == d ]]; then
+    echo "blight down"
+    blight_down
+else
+    set_blight_absolute 180
+fi

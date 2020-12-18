@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mouseid=$(xinput list | grep G400 | grep -Poh '(?<=id=)\d+')
+
+xinput --set-prop $mouseid 'libinput Accel Profile Enabled' 0 1
