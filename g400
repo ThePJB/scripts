@@ -3,3 +3,4 @@
 mouseid=$(xinput list | grep G400 | grep -Poh '(?<=id=)\d+')
 
 xinput --set-prop $mouseid 'libinput Accel Profile Enabled' 0 1
+xinput set-button-map $mouseid 1 2 3 4 5 6 7 8 2 2
